@@ -7,12 +7,12 @@ import * as Animatable from "react-native-animatable";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer";
-// import { FIREBASE_AUTH } from "../../firebaseConfig";
-// import { onAuthStateChanged, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../firebaseConfig";
+import { onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-//   const auth = FIREBASE_AUTH;
+  const auth = FIREBASE_AUTH;
 //   let googleProvider = new GoogleAuthProvider()
   const clearOnboarding = async () => {
     try {
@@ -22,33 +22,33 @@ const LoginScreen = () => {
       console.log("Error @clearOnboarding: ", error);
     }
   };
-//   useEffect(() => {
-//     const unsubscribe = onAuthStateChanged(auth, (user) => {
-//       console.log("Auth state chaged", user);
-//       if (user) {
-//         navigation.replace("Home");
-//       }
-//     });
-//     return unsubscribe;
-//   }, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Auth state chaged", user);
+      if (user) {
+        navigation.replace("Home");
+      }
+    });
+    return unsubscribe;
+  }, []);
   const register = () => {
     navigation.navigate("Register");
   };
-//   const loginUser = async (values) => {
-//     const { email, password } = values;
-//     try {
-//       const response = await signInWithEmailAndPassword(
-//         auth,
-//         email,
-//         password
-//       );
-//       console.log(response);
-//     } catch (error) {
-//       console.log(error);
-//       alert("login failed: " + error.message);
-//     }
-//     console.log("this are the values here now for email", values.email);
-//   };
+  const loginUser = async (values) => {
+    const { email, password } = values;
+    try {
+      const response = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      alert("login failed: " + error.message);
+    }
+    console.log("this are the values here now for email", values.email);
+  };
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -65,7 +65,7 @@ const LoginScreen = () => {
   return (
     <KeyboardAvoidingContainer>
       <View className="flex-1 items-center justify-center">
-        <View className="w-[50%] bg-green-100 h-40 mt-10">
+        <View className="w-[50%] h-40 mt-10">
           <Animatable.Image
             source={require("../../assets/loginn.gif")}
             animation="slideInUp"
@@ -129,14 +129,14 @@ const LoginScreen = () => {
             {/* <Text className="text-center py-5 text-lg text-gray-400 font-semibold">Or</Text> */}
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             className=" rounded-lg  flex flex-row items-center justify-center space-x-2 bg-orange-200 mt-3 p-2"
           >
             <Icon name="google" type="font-awesome" color="red" />
             <Text className="text-center font-semibold text-white text-lg">
               Google
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View className="flex-row space-x-2 justify-center mt-4">
             <Text className="text-gray-500">New to the app?</Text>
             <TouchableOpacity onPress={register}>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-// import HomeScreen from "../screens/HomeScreen";
+import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import { getItem } from "../../utils/asyncStorage";
-// import AddChatRoom from "../screens/AddChatRoom";
-// import ChatScreen from "../screens/ChatScreen";
+import AddChatRoom from "../screens/AddChatRoom";
+import ChatScreen from "../screens/ChatScreen";
 const Stack = createStackNavigator();
 const AppNavigation = () => {
   const [showonboarding, setShowonboarding] = useState(null);
@@ -49,7 +49,7 @@ const AppNavigation = () => {
             headerShown: false,
           }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{
@@ -63,7 +63,7 @@ const AppNavigation = () => {
         <Stack.Screen
           name="Chat"
           component={ChatScreen}
-        /> */}
+        />
       </Stack.Navigator>
     );
   } else {
@@ -90,7 +90,7 @@ const AppNavigation = () => {
             headerShown: false,
           }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Home"
           component={HomeScreen}
         />
@@ -101,7 +101,7 @@ const AppNavigation = () => {
         <Stack.Screen
           name="Chat"
           component={ChatScreen}
-        /> */}
+        />
       </Stack.Navigator>
     );
   }
