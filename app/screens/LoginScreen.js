@@ -128,15 +128,6 @@ const LoginScreen = () => {
           <View className="w-full">
             {/* <Text className="text-center py-5 text-lg text-gray-400 font-semibold">Or</Text> */}
           </View>
-
-          {/* <TouchableOpacity
-            className=" rounded-lg  flex flex-row items-center justify-center space-x-2 bg-orange-200 mt-3 p-2"
-          >
-            <Icon name="google" type="font-awesome" color="red" />
-            <Text className="text-center font-semibold text-white text-lg">
-              Google
-            </Text>
-          </TouchableOpacity> */}
           <View className="flex-row space-x-2 justify-center mt-4">
             <Text className="text-gray-500">New to the app?</Text>
             <TouchableOpacity onPress={register}>

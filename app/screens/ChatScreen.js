@@ -27,6 +27,8 @@ import { FIREBASE_AUTH, FIRESTORE_DB } from "../../firebaseConfig";
 const ChatScreen = ({ navigation, route }) => {
   const [input, setInput] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  console.log(chatMessages)
+  console.log(FIREBASE_AUTH)
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "Chat",
@@ -75,7 +77,7 @@ const ChatScreen = ({ navigation, route }) => {
         chat: input,
         displayName: FIREBASE_AUTH.currentUser.displayName,
         email: FIREBASE_AUTH.currentUser.email,
-        photoURL: FIREBASE_AUTH.currentUser.photoURL,
+        photoURL: FIREBASE_AUTH?.currentUser?.photoURL,
       });
       setInput("");
     } catch (error) {
@@ -97,13 +99,13 @@ const ChatScreen = ({ navigation, route }) => {
                 data.email === FIREBASE_AUTH.currentUser.email ? (
                   <View
                     key={id}
-                    className="bg-gray-100 rounded-lg w-fit relative my-4 mx-4 p-2 mb-4 h-10"
+                    className="bg-gray-100 rounded-lg w-fit relative my-4 mx-4 p-2 mb-4"
                     style={{ alignSelf: "flex-end" }}
                   >
                     <Avatar
                       position="absolute"
                       rounded
-                      bottom={-15}
+                      bottom={-20}
                       right={-5}
                       size={30}
                       source={{ uri: data?.photoURL }}
@@ -114,7 +116,7 @@ const ChatScreen = ({ navigation, route }) => {
                 ) : (
                   <View
                     key={id}
-                    className="bg-orange-300 rounded-lg w-fit relative flex-row items-center my-4 mx-4 p-2 mb-4 h-10"
+                    className="bg-orange-300 rounded-lg w-fit relative flex-row items-center my-4 mx-4 p-2 mb-4"
                     style={{ alignSelf: "flex-start" }}
                   >
                     <Avatar
@@ -145,7 +147,7 @@ const ChatScreen = ({ navigation, route }) => {
                 value={input}
                 onChangeText={(text) => setInput(text)}
                 onSubmitEditing={sendChat}
-                className="flex-1 border-b border-gray-100 bg-gray-100 rounded-full p-2 placeholder:text-lg text-gray-700"
+                className="flex-1 border-b border-gray-100 bg-blue-50 rounded-full p-2 placeholder:text-lg text-blue-400"
               />
               <TouchableOpacity onPress={sendChat}>
                 <Icon name="send" type="ionicon" color="dodgerblue" />

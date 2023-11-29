@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app';
 import {
-  initializeAuth,
   getAuth,
   getReactNativePersistence,
 } from 'firebase/auth';
@@ -22,25 +21,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Check if authentication has already been initialized
-let authInstance = getAuth(app);
-
-if (!authInstance) {
-  // If not initialized, initialize with persistence
-  authInstance = initializeAuth(app, {
-    persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-  });
-} else {
-  // If already initialized, check the persistence mechanism
-  const persistenceType = authInstance.settings.persistence;
-  if (!persistenceType || persistenceType !== 'LOCAL') {
-    // If not using AsyncStorage, update persistence
-    authInstance.settings = {
-      ...authInstance.settings,
-      persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-    };
-  }
-}
-
-export const FIREBASE_AUTH = authInstance;
+export const FIREBASE_AUTH = getAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+  asyncStorage: ReactNativeAsyncStorage,
+});
 export const FIREBASE_STORAGE = getStorage(app);
 export const FIRESTORE_DB = getFirestore(app);
