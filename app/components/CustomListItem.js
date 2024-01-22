@@ -52,13 +52,26 @@ const CustomListItem = ({ id, Title, index, goToChat }) => {
     "text-green-400",
     "text-purple-400",
     "text-red-400",
+    "text-gray-400",
+    "text-yellow-700",
+  ];
+  const titlebgColors = [
+    "bg-orange-100",
+    "bg-blue-100",
+    "bg-green-100",
+    "bg-purple-100",
+    "bg-red-100",
+    "bg-gray-700",
+    "bg-yellow-100",
+
   ];
   return (
     <TouchableWithoutFeedback
-      className="p-2"
       onPress={() => goToChat(id, Title)}
     >
-      <View className="flex-row space-x-3 bg-blue-50 p-4 border-b border-gray-50 my-2 mx-2 rounded-lg shadow-lg">
+      <View className={`flex-row space-x-3 ${
+              titlebgColors[index % titlebgColors.length]
+            } p-2 border-b border-gray-50 my-2 rounded-lg shadow-lg`}>
         {URL[0] ? (
           <Avatar rounded source={{ uri: URL[0] }} />
         ) : (

@@ -8,12 +8,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import KeyboardAvoidingContainer from "../components/KeyboardAvoidingContainer";
 import { FIREBASE_AUTH } from "../../firebaseConfig";
-import { onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const auth = FIREBASE_AUTH;
-//   let googleProvider = new GoogleAuthProvider()
+  //   let googleProvider = new GoogleAuthProvider()
   const clearOnboarding = async () => {
     try {
       removeItem("onboarded");
@@ -26,7 +26,7 @@ const LoginScreen = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       console.log("Auth state chaged", user);
       if (user) {
-        navigation.replace("Home");
+        navigation.replace("Welcome");
       }
     });
     return unsubscribe;
@@ -37,12 +37,10 @@ const LoginScreen = () => {
   const loginUser = async (values) => {
     const { email, password } = values;
     try {
-      const response = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
+      // Navigate to Home screen after successful login
+      // navigation.replace("Home");
     } catch (error) {
       console.log(error);
       alert("login failed: " + error.message);

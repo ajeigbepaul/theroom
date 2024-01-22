@@ -14,9 +14,10 @@ import CustomListItem from "../components/CustomListItem";
 import { useState } from "react";
 import { useEffect } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
+import StaffListItem from "../components/StaffListItem";
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [chatrooms, setChatrooms] = useState([]);
+  const [users, setUsers] = useState([]);
   const auth = FIREBASE_AUTH;
   const signUserOut = () => {
     auth.signOut().then(() => {
@@ -25,11 +26,14 @@ const HomeScreen = () => {
   };
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      collection(FIRESTORE_DB, "chatrooms"),
-      (querySnapshot) => setChatrooms(querySnapshot?.docs?.map((doc) => ({
-        id:doc.id,
-        data:doc.data()
-      })))
+      collection(FIRESTORE_DB, "users"),
+      (querySnapshot) =>
+        setUsers(
+          querySnapshot?.docs?.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
       // const chatroomData = new Map();
     );
 
@@ -37,7 +41,7 @@ const HomeScreen = () => {
       unsubscribe();
     };
   }, []);
-
+  console.log(users);
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "The Room",
@@ -53,9 +57,6 @@ const HomeScreen = () => {
       ),
       headerRight: () => (
         <View className="mr-4 flex-row space-x-4 justify-center">
-          {/* <TouchableOpacity activeOpacity={0.5} onPress={signUserOut}>
-            <Icon name="camerao" type="ant-design" color="white" />
-          </TouchableOpacity> */}
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => navigation.navigate("AddChatRoom")}
@@ -67,18 +68,26 @@ const HomeScreen = () => {
     });
   }, [navigation]);
   // console.log(chatrooms);
-  const goToChat = (id,Title)=>{
-  navigation.navigate("Chat",{
-    id,
-    Title
-  })
-  }
+  // const goToChat = (id, Title) => {
+  //   navigation.navigate("Chat", {
+  //     id,
+  //     Title,
+  //   });
+  // };
   return (
     <SafeAreaView>
-      <ScrollView className="h-full bg-white">
-        {chatrooms?.map(({ id, data: { Title } }, index) => (
-          <CustomListItem key={id} id={id} Title={Title} index={index} goToChat={goToChat}/>
-        ))}
+      <ScrollView className="h-full bg-white p-2">
+        <Text className="text-2xl font-semibold text-center">
+          Welcome to Opex Room
+        </Text>
+        <Text className="text-center mt-3 text-[16px] mb-5">
+          Meet the Opex staff 
+        </Text>
+        <View className="flex-row items-center justify-between">
+          {users?.map(({ data, id }, index) => (
+            <StaffListItem key={index} data={data} id={id} users={users} />
+          ))}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

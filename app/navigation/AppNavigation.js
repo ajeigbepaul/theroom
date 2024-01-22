@@ -7,6 +7,8 @@ import RegisterScreen from "../screens/RegisterScreen";
 import { getItem } from "../../utils/asyncStorage";
 import AddChatRoom from "../screens/AddChatRoom";
 import ChatScreen from "../screens/ChatScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
+import StaffDetailsScreen from "../screens/StaffDetailsScreen";
 const Stack = createStackNavigator();
 const AppNavigation = () => {
   const [showonboarding, setShowonboarding] = useState(null);
@@ -56,13 +58,15 @@ const AppNavigation = () => {
             headerShown: false,
           }}
         />
+        <Stack.Screen name="AddChatRoom" component={AddChatRoom} />
+        <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen
-          name="AddChatRoom"
-          component={AddChatRoom}
-        />
-        <Stack.Screen
-          name="Chat"
-          component={ChatScreen}
+          name="StaffDetails"
+          component={StaffDetailsScreen}
+          options={{
+            headerShown: false,
+          }}
         />
       </Stack.Navigator>
     );
@@ -90,17 +94,16 @@ const AppNavigation = () => {
             headerShown: false,
           }}
         />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="AddChatRoom" component={AddChatRoom} />
+        <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-        />
-        <Stack.Screen
-          name="AddChatRoom"
-          component={AddChatRoom}
-        />
-        <Stack.Screen
-          name="Chat"
-          component={ChatScreen}
+          name="StaffDetails"
+          component={StaffDetailsScreen}
+          options={{
+            headerShown: false,
+          }}
         />
       </Stack.Navigator>
     );
